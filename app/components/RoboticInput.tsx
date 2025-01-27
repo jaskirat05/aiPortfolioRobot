@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import './RoboticInput.css';
 
 interface RoboticInputProps {
   placeholder?: string;
@@ -15,11 +16,13 @@ const PREMADE_PROMPTS = [
 
 const RoboticInput = ({ placeholder = "Enter command...", onSubmit }: RoboticInputProps) => {
   const [value, setValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       if (onSubmit) {
-        onSubmit(value);
+        setIsTyping(true);
+        onSubmit(value).finally(() => setIsTyping(false));
       } else {
         console.log('Command entered:', value);
       }
@@ -29,7 +32,8 @@ const RoboticInput = ({ placeholder = "Enter command...", onSubmit }: RoboticInp
 
   const handlePromptClick = (prompt: string) => {
     if (onSubmit) {
-      onSubmit(prompt);
+      setIsTyping(true);
+      onSubmit(prompt).finally(() => setIsTyping(false));
     }
   };
 
@@ -42,17 +46,15 @@ const RoboticInput = ({ placeholder = "Enter command...", onSubmit }: RoboticInp
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="w-full bg-gray-800/80 text-green-400 px-4 py-2 rounded-lg 
+          disabled={isTyping}
+          className={`w-full bg-gray-800/80 text-green-400 px-4 py-2 rounded-lg 
                      font-['VT323'] text-lg tracking-wider
-                     border border-green-500
-                     focus:outline-none focus:border-green-400
-                     placeholder-green-600/50
-                     transition-all duration-300
-                     uppercase"
+                     border border-green-500 ${isTyping ? 'border-breathe' : ''}`}
           style={{
             caretColor: '#4ADE80'
           }}
         />
+        {isTyping && <span className="text-green-400">Loading...</span>}
         
         {/* Pre-made prompts */}
         <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-4 w-full">
