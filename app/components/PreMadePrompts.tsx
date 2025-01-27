@@ -16,7 +16,7 @@ const PreMadePrompts: React.FC<PreMadePromptsProps> = ({ onPromptClick }) => {
           key={index}
           onClick={() => onPromptClick(prompt)}
           className="bg-gray-800/60 hover:bg-gray-700/60 text-gray-300 hover:text-white
-                     px-4 py-2 rounded-full text-2xl font-bold
+                     px-4 py-2 rounded-full text-2xl font-['VT323']
                      border border-gray-700/50 backdrop-blur-sm
                      transition-all duration-300 cursor-pointer"
         >
