@@ -5,7 +5,7 @@ import './RoboticInput.css';
 
 interface RoboticInputProps {
   placeholder?: string;
-  onSubmit?: (value: string) => void;
+  onSubmit?: (value: string) => Promise<void>;
 }
 
 const PREMADE_PROMPTS = [
