@@ -108,7 +108,7 @@ export default function Home() {
             iconChar="🤖"
             isLoading={isLoading}
             position={getPosition('ai.exe')}
-            onDragEnd={(x, y) => updatePosition('ai.exe', x, y)}
+            onDragEnd={(x, y) => updatePosition('get', x, y)}
             onClick={() => {
               const aiEvent = new CustomEvent('toggleAI', { detail: true });
               window.dispatchEvent(aiEvent);
